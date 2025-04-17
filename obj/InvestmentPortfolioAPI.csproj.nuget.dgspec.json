@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\projectsVS\\deneme1\\InvestmentPortfolioAPI\\InvestmentPortfolioAPI.csproj": {}
+    "C:\\Users\\FINOKULU\\Documents\\GitHub\\FinancialPortfolioManagementSystem\\InvestmentPortfolioAPI.csproj": {}
   },
   "projects": {
-    "C:\\projectsVS\\deneme1\\InvestmentPortfolioAPI\\InvestmentPortfolioAPI.csproj": {
+    "C:\\Users\\FINOKULU\\Documents\\GitHub\\FinancialPortfolioManagementSystem\\InvestmentPortfolioAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\projectsVS\\deneme1\\InvestmentPortfolioAPI\\InvestmentPortfolioAPI.csproj",
+        "projectUniqueName": "C:\\Users\\FINOKULU\\Documents\\GitHub\\FinancialPortfolioManagementSystem\\InvestmentPortfolioAPI.csproj",
         "projectName": "InvestmentPortfolioAPI",
-        "projectPath": "C:\\projectsVS\\deneme1\\InvestmentPortfolioAPI\\InvestmentPortfolioAPI.csproj",
-        "packagesPath": "C:\\Users\\Enver\\.nuget\\packages\\",
-        "outputPath": "C:\\projectsVS\\deneme1\\InvestmentPortfolioAPI\\obj\\",
+        "projectPath": "C:\\Users\\FINOKULU\\Documents\\GitHub\\FinancialPortfolioManagementSystem\\InvestmentPortfolioAPI.csproj",
+        "packagesPath": "C:\\Users\\FINOKULU\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\FINOKULU\\Documents\\GitHub\\FinancialPortfolioManagementSystem\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Enver\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\FINOKULU\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -63,11 +63,11 @@
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.4, )"
+              "version": "[8.0.0, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[8.0.4, )"
+              "version": "[8.0.0, )"
             },
             "MongoDB.Driver": {
               "target": "Package",
@@ -97,7 +97,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.407/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.408/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
