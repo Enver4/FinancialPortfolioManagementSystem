@@ -122,10 +122,10 @@ using (var scope = app.Services.CreateScope())
     if (!db.Currencies.Any())
         {
             db.Currencies.AddRange(
-                new Currency { Name = "TRY" },
-                new Currency { Name = "USD" },
-                new Currency { Name = "JPY" },
-                new Currency { Name = "EUR" }
+                new Currency { Name = "TRY" , Symbol="₺" },
+                new Currency { Name = "USD" , Symbol="$" },
+                new Currency { Name = "JPY" , Symbol="¥" },
+                new Currency { Name = "EUR" , Symbol="€" }
             );
             db.SaveChanges();
         }

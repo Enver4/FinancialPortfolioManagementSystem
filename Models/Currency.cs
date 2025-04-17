@@ -9,5 +9,6 @@ namespace InvestmentPortfolioAPI.Models
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty; // TRY, USD etc
+        public string Symbol { get; set; } = string.Empty; //₺,€,$ etc.
     }
 }
