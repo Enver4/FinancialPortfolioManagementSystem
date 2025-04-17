@@ -39,5 +39,7 @@ namespace InvestmentPortfolioAPI.Data
         public DbSet<AssetType> AssetTypes { get; set; }
 
         public DbSet<ExchangeRate> ExchangeRates { get; set; }
+        
+        public DbSet<Currency> Currencies { get; set; }
     }
 }

@@ -95,12 +95,14 @@ using (var scope = app.Services.CreateScope())
             {
                 Username = "admin",
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword("admin123"),
+                Email = "amail",
                 Role = "Admin"
             },
             new User
             {
                 Username = "user",
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword("user123"),
+                Email = "umail",
                 Role = "User"
             }
         );
@@ -117,6 +119,17 @@ using (var scope = app.Services.CreateScope())
         );
         db.SaveChanges();
     }
+    if (!db.Currencies.Any())
+        {
+            db.Currencies.AddRange(
+                new Currency { Name = "TRY" },
+                new Currency { Name = "USD" },
+                new Currency { Name = "JPY" },
+                new Currency { Name = "EUR" }
+            );
+            db.SaveChanges();
+        }
+   
 
 }
 if (app.Environment.IsDevelopment())

@@ -15,7 +15,7 @@ namespace InvestmentPortfolioAPI.Models
         public User? User { get; set; } // Optional, for EF navigation
 
         public int AssetTypeId { get; set; }
-        public AssetType? AssetType { get; set; }
+        public Currency? AssetType { get; set; }
 
         public string Currency { get; set; } = "USD";
 

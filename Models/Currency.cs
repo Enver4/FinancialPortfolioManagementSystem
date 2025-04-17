@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace InvestmentPortfolioAPI.Models
 {
-    public class AssetType
+    public class Currency
     {
         public int Id { get; set; }
-        public string Name { get; set; } = string.Empty; // e.g., Cash, Stock, Crypto, Gold
+        public string Name { get; set; } = string.Empty; // TRY, USD etc
     }
 }

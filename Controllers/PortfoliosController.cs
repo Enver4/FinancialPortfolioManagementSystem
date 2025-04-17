@@ -14,6 +14,7 @@ using System.Security.Claims;
 using InvestmentPortfolioAPI.Models.Dto;
 using InvestmentPortfolioAPI.Services;
 using InvestmentPortfolioAPI.Models.Mongo;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 
 namespace InvestmentPortfolioAPI.Controllers
 {
@@ -38,11 +39,14 @@ namespace InvestmentPortfolioAPI.Controllers
 
         // GET: api/Portfolios
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<InvestmentPortfolio>>> GetPortfolios()
         {
             return await _context.InvestmentPortfolios.ToListAsync();
         }
 
+        
+        
         // GET: api/Portfolios/5
         [HttpGet("{id}")]
         public async Task<ActionResult<InvestmentPortfolio>> GetPortfolio(int id)
@@ -54,6 +58,7 @@ namespace InvestmentPortfolioAPI.Controllers
             return portfolio;
         }
 
+        
         // POST: api/Portfolios
         [HttpPost]
         public async Task<ActionResult<InvestmentPortfolio>> PostPortfolio(InvestmentPortfolio portfolio)

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\FINOKULU\\Documents\\GitHub\\FinancialPortfolioManagementSystem\\InvestmentPortfolioAPI.csproj": {}
+    "C:\\Users\\FINOKULU\\Documents\\bb\\InvestmentPortfolioAPI\\InvestmentPortfolioAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\FINOKULU\\Documents\\GitHub\\FinancialPortfolioManagementSystem\\InvestmentPortfolioAPI.csproj": {
+    "C:\\Users\\FINOKULU\\Documents\\bb\\InvestmentPortfolioAPI\\InvestmentPortfolioAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\FINOKULU\\Documents\\GitHub\\FinancialPortfolioManagementSystem\\InvestmentPortfolioAPI.csproj",
+        "projectUniqueName": "C:\\Users\\FINOKULU\\Documents\\bb\\InvestmentPortfolioAPI\\InvestmentPortfolioAPI.csproj",
         "projectName": "InvestmentPortfolioAPI",
-        "projectPath": "C:\\Users\\FINOKULU\\Documents\\GitHub\\FinancialPortfolioManagementSystem\\InvestmentPortfolioAPI.csproj",
+        "projectPath": "C:\\Users\\FINOKULU\\Documents\\bb\\InvestmentPortfolioAPI\\InvestmentPortfolioAPI.csproj",
         "packagesPath": "C:\\Users\\FINOKULU\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\FINOKULU\\Documents\\GitHub\\FinancialPortfolioManagementSystem\\obj\\",
+        "outputPath": "C:\\Users\\FINOKULU\\Documents\\bb\\InvestmentPortfolioAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\FINOKULU\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -72,6 +72,10 @@
             "MongoDB.Driver": {
               "target": "Package",
               "version": "[3.3.0, )"
+            },
+            "NCalc": {
+              "target": "Package",
+              "version": "[1.3.8, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
