@@ -15,6 +15,7 @@ using InvestmentPortfolioAPI.Models.Dto;
 using InvestmentPortfolioAPI.Services;
 using InvestmentPortfolioAPI.Models.Mongo;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
+using Microsoft.VisualBasic;
 
 namespace InvestmentPortfolioAPI.Controllers
 {
@@ -52,6 +53,17 @@ namespace InvestmentPortfolioAPI.Controllers
         public async Task<ActionResult<InvestmentPortfolio>> GetPortfolio(int id)
         {
             var portfolio = await _context.InvestmentPortfolios.FindAsync(id);
+            if (portfolio == null)
+                return NotFound();
+
+            return portfolio;
+        }
+
+        [HttpGet("myPortfolio")]
+        public async Task<ActionResult<IEnumerable<InvestmentPortfolio>>> GetOwnPortfolio()
+        {   var userId = GetUserId();
+            var portfolio = await _context.InvestmentPortfolios.Where(c => c.UserId==userId)
+            .ToListAsync();
             if (portfolio == null)
                 return NotFound();
 
