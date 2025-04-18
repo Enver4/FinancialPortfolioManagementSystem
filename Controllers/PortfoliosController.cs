@@ -176,6 +176,7 @@ namespace InvestmentPortfolioAPI.Controllers
 
         return Ok(Math.Round(total, 2));
         }
+        
 
         //REPORT
 

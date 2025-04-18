@@ -6,6 +6,8 @@ using System.Text;
 using InvestmentPortfolioAPI.Models;
 using InvestmentPortfolioAPI.Models.Mongo;
 using InvestmentPortfolioAPI.Services;
+using System.Threading.RateLimiting;
+using Microsoft.AspNetCore.RateLimiting;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpClient(); // required for HttpClient
@@ -42,11 +44,36 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+builder.Services.AddRateLimiter(options =>
+{
+    options.AddPolicy("UserRateLimit", context =>
+    {
+        var user = context.User;
+
+        if (user.Identity?.IsAuthenticated == true && user.IsInRole("User"))
+        {
+            return RateLimitPartition.GetTokenBucketLimiter(
+                partitionKey: user.Identity.Name ?? "anonymous",
+                factory: key => new TokenBucketRateLimiterOptions
+                {
+                    TokenLimit = 10,
+                    TokensPerPeriod = 10,
+                    ReplenishmentPeriod = TimeSpan.FromMinutes(1),
+                    QueueLimit = 0,
+                    QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+                    AutoReplenishment = true
+                });
+        }
+
+        // No limit for Admins
+        return RateLimitPartition.GetNoLimiter(user.Identity?.Name ?? "anonymous");
+    });
+});
 builder.Services.Configure<MongoSettings>(
     builder.Configuration.GetSection("MongoSettings"));
 
 builder.Services.AddSingleton<MongoLoggerService>();
-
+builder.Services.AddHttpClient<ExchangeRateUpdater>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -63,7 +90,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             )
         };
 
-
+            
      /* Used for debugging reasons
        options.Events = new JwtBearerEvents
 {
@@ -137,6 +164,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseRateLimiter();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();

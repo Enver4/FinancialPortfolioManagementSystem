@@ -28,6 +28,18 @@ namespace InvestmentPortfolioAPI.Controllers
         {
             return await _context.ExchangeRates.ToListAsync();
         }
+
+        [HttpGet("Latest Rates")]
+        public async Task<ActionResult<IEnumerable<ExchangeRate>>> GetLastExchangeRates()
+        {
+            var latestRates = await _context.ExchangeRates
+                .GroupBy(r => new { r.FromCurrency, r.ToCurrency })
+                .Select(g => g.OrderByDescending(r => r.UpdatedAt).First())
+                .ToListAsync();
+
+            return Ok(latestRates);
+        }
+
         // POST: api/ExchangeRates (Admin only)
         [HttpPost]
         [Authorize(Roles = "Admin")]
@@ -36,42 +48,98 @@ namespace InvestmentPortfolioAPI.Controllers
             var existing = await _context.ExchangeRates
                 .FirstOrDefaultAsync(r => r.FromCurrency == rate.FromCurrency && r.ToCurrency == rate.ToCurrency);
 
-            if (existing != null)
-            {
-                existing.Rate = rate.Rate;
-                existing.UpdatedAt = DateTime.UtcNow;
-            }
-            else
-            {
+            //if (existing != null)
+            //{
+            //    existing.Rate = rate.Rate;
+            //    existing.UpdatedAt = DateTime.UtcNow;
+            //}
+            //else
+            //{
                 rate.UpdatedAt = DateTime.UtcNow;
                 _context.ExchangeRates.Add(rate);
-            }
+            //}
 
             await _context.SaveChangesAsync();
             return Ok();
         }
+
+        [HttpGet("param USD")]
+        public async Task<ActionResult<IEnumerable<ExchangeRate>>> GetExchangeRatesByParam(decimal param, bool isAbove)
+        {   
+            var exRates = await _context.ExchangeRates.ToListAsync();
+            if(isAbove){
+            exRates = await _context.ExchangeRates
+            .Where(c => c.FromCurrency=="USD" && c.Rate >= param)
+            .ToListAsync();
+            }
+            else{
+            exRates= await _context.ExchangeRates
+            .Where(c => c.Rate <= param)
+            .ToListAsync();
+            }
+            return exRates;
+        }
+
+        [HttpGet("date param")]
+        public async Task<ActionResult<IEnumerable<ExchangeRate>>> GetExchangeRatesByDateRange(DateTime sDate, DateTime eDate)
+        {   
+            var exRates = await _context.ExchangeRates.ToListAsync();
+            
+            exRates = await _context.ExchangeRates
+            .Where(c => c.UpdatedAt >= sDate && c.UpdatedAt <= eDate)
+            .ToListAsync();
+            
+            
+            return exRates;
+        }
+
+        [HttpGet("date param avg")]
+        public async Task<ActionResult<IEnumerable<ExchangeRate>>> GetExchangeRatesAvgByDateRange(DateTime sDate, DateTime eDate)
+        {   
+            var averages = await _context.ExchangeRates
+        .Where(r => r.UpdatedAt >= sDate && r.UpdatedAt <= eDate)
+        .GroupBy(r => new { r.FromCurrency, r.ToCurrency })
+        .Select(g => new ExchangeRateAverageDto
+        {
+            FromCurrency = g.Key.FromCurrency,
+            ToCurrency = g.Key.ToCurrency,
+            AverageRate = Math.Round(g.Average(r => r.Rate),2)
+        })
+        .ToListAsync();
+            
+            return Ok(averages);
+        }
         
-        /*[HttpGet("calculate")]
+         [HttpGet("calculate")]
         public async Task<IActionResult> Calculate(string input)
         {
-            var formula = "price * tax + 5";
+            string[] tokens = input.Split(' ');
 
-            var parameters = await _context.ExchangeRates.ToListAsync();
-            var expression = input;
-
-            foreach (var param in parameters)
-            {
-                expression.Parameters[param.ToCurrency] = param.Rate;
+            decimal leftOperand = decimal.Parse(tokens[0]);
+            string operatorSymbol = tokens[1];
+            string currencyCode = tokens[2];
+            var currency = await _context.ExchangeRates
+            .Where(c => c.ToCurrency == currencyCode)
+            .FirstOrDefaultAsync();
+            decimal excRate = currency.Rate;
+            decimal result=0;
+            switch (operatorSymbol){
+                case "/" :
+                    result= leftOperand/excRate;
+                    break;
+                case "*" :
+                    result= leftOperand*excRate;
+                    break;
             }
-
-            try
-            {
-                var result = expression.Evaluate();
-                return Ok(new { formula, result });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($"Error in formula: {ex.Message}");
-            } */
+            
+            return Ok(Math.Round(result, 2).ToString("0.00"));
         }
     }
+
+    internal class ExchangeRateAverageDto
+    {
+        public string FromCurrency { get; set; }
+        public string ToCurrency { get; set; }
+        public decimal AverageRate { get; set; }
+    }
+}

@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using InvestmentPortfolioAPI.Data;
 using InvestmentPortfolioAPI.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace InvestmentPortfolioAPI.Controllers
 {
@@ -23,6 +24,7 @@ namespace InvestmentPortfolioAPI.Controllers
 
         // GET: api/Currencies
         [HttpGet]
+        [EnableRateLimiting("UserRateLimit")]
         public async Task<ActionResult<IEnumerable<Currency>>> GetCurrencies()
         {
             return await _context.Currencies.ToListAsync();
