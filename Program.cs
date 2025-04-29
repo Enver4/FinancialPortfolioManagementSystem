@@ -9,6 +9,15 @@ using InvestmentPortfolioAPI.Services;
 using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.RateLimiting;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins("http://localhost:5173") // your Vue dev server
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
 
 builder.Services.AddHttpClient(); // required for HttpClient
 builder.Services.AddScoped<ExchangeRateUpdater>();
@@ -164,6 +173,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors();
 app.UseRateLimiter();
 app.UseHttpsRedirection();
 app.UseAuthentication();

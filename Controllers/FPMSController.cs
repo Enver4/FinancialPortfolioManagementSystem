@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using InvestmentPortfolioAPI.Data;
 using InvestmentPortfolioAPI.Models;
 using InvestmentPortfolioAPI.Services;
+using System.Text.RegularExpressions;
 
 namespace InvestmentPortfolioAPI.Controllers
 {   
@@ -110,7 +111,7 @@ namespace InvestmentPortfolioAPI.Controllers
             return Ok(averages);
         }
         
-         [HttpGet("calculate")]
+          [HttpGet("calculate")]
         public async Task<IActionResult> Calculate(string input)
         {
             string[] tokens = input.Split(' ');
@@ -133,7 +134,9 @@ namespace InvestmentPortfolioAPI.Controllers
             }
             
             return Ok(Math.Round(result, 2).ToString("0.00"));
-        }
+        } 
+        
+        
     }
 
     internal class ExchangeRateAverageDto
