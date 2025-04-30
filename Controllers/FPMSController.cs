@@ -111,7 +111,7 @@ namespace InvestmentPortfolioAPI.Controllers
             return Ok(averages);
         }
         
-          [HttpGet("calculate")]
+         /*  [HttpGet("calculate")]
         public async Task<IActionResult> Calculate(string input)
         {
             string[] tokens = input.Split(' ');
@@ -134,8 +134,56 @@ namespace InvestmentPortfolioAPI.Controllers
             }
             
             return Ok(Math.Round(result, 2).ToString("0.00"));
-        } 
-        
+        }  */
+        [HttpGet("calculate")]
+public async Task<IActionResult> Calculate(string input)
+{
+    if (string.IsNullOrWhiteSpace(input))
+        return BadRequest("Input is empty");
+
+    // Remove extra spaces to normalize
+    input = input.Replace(" ", "");
+
+    // Pattern: either "number operator currency" or "currency operator number"
+    var match = Regex.Match(input, @"^((\d+(\.\d+)?)(\/|\*)([A-Z]{3}))|(([A-Z]{3})(\/|\*)(\d+(\.\d+)?))$", RegexOptions.IgnoreCase);
+
+    if (!match.Success)
+        return BadRequest("Invalid format. Use formats like '100*USD' or 'USD*100'.");
+
+    decimal leftOperand;
+    string operatorSymbol;
+    string currencyCode;
+
+    // If first part is number, then operator and currency follow
+    if (decimal.TryParse(match.Groups[2].Value, out leftOperand)) {
+        operatorSymbol = match.Groups[4].Value;
+        currencyCode = match.Groups[5].Value.ToUpper();
+    } 
+    // If first part is currency, then operator and number follow
+    else {
+        currencyCode = match.Groups[6].Value.ToUpper();
+        operatorSymbol = match.Groups[7].Value;
+        leftOperand = decimal.Parse(match.Groups[8].Value);
+    }
+
+    var currency = await _context.ExchangeRates
+    .Where(c => c.FromCurrency=="USD" & c.ToCurrency == currencyCode)
+    .OrderByDescending(c => c.UpdatedAt)
+    .FirstOrDefaultAsync();
+
+    if (currency == null)
+        return NotFound($"Currency '{currencyCode}' not found.");
+
+    decimal excRate = currency.Rate;
+    decimal result = operatorSymbol switch
+    {
+        "/" => leftOperand / excRate,
+        "*" => leftOperand * excRate,
+        _ => throw new InvalidOperationException("Unsupported operator")
+    };
+
+    return Ok(Math.Round(result, 2).ToString("0.00"));
+}
         
     }
 
