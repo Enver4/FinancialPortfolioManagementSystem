@@ -18,7 +18,6 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod();
     });
 });
-
 builder.Services.AddHttpClient(); // required for HttpClient
 builder.Services.AddScoped<ExchangeRateUpdater>();
 builder.Services.AddControllers();
@@ -168,16 +167,16 @@ using (var scope = app.Services.CreateScope())
    
 
 }
-if (app.Environment.IsDevelopment())
-{
+
+
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+
 app.UseCors();
 app.UseRateLimiter();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-
+app.Urls.Add("http://0.0.0.0:80");
 app.Run();

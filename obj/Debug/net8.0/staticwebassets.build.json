@@ -1,11 +1,12 @@
 {
   "Version": 1,
-  "Hash": "cqzw/crGRAbL68bUimkuBWYxd3rJdtli6+9UkzvhVWk=",
+  "Hash": "6U1ei4TxtQv1jc/wP1oFhjDYIZJQV8d1NUjOlYLxsLI=",
   "Source": "InvestmentPortfolioAPI",
   "BasePath": "_content/InvestmentPortfolioAPI",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [],
-  "Assets": []
+  "Assets": [],
+  "Endpoints": []
 }

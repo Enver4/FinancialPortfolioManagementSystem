@@ -4565,25 +4565,34 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\FINOKULU\\.nuget\\packages\\": {}
+    "C:\\Users\\Admin\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\FINOKULU\\Documents\\bb\\InvestmentPortfolioAPI\\InvestmentPortfolioAPI.csproj",
+      "projectUniqueName": "C:\\Users\\Admin\\Desktop\\InvestmentPortfolioAPI\\InvestmentPortfolioAPI.csproj",
       "projectName": "InvestmentPortfolioAPI",
-      "projectPath": "C:\\Users\\FINOKULU\\Documents\\bb\\InvestmentPortfolioAPI\\InvestmentPortfolioAPI.csproj",
-      "packagesPath": "C:\\Users\\FINOKULU\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\FINOKULU\\Documents\\bb\\InvestmentPortfolioAPI\\obj\\",
+      "projectPath": "C:\\Users\\Admin\\Desktop\\InvestmentPortfolioAPI\\InvestmentPortfolioAPI.csproj",
+      "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Admin\\Desktop\\InvestmentPortfolioAPI\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\FINOKULU\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
-        "https://api.nuget.org/v3/index.json": {}
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
+        "https://api.nuget.org/v3/index.json": {},
+        "https://nuget.finoku.com/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
@@ -4600,7 +4609,8 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "9.0.200"
     },
     "frameworks": {
       "net8.0": {
@@ -4664,7 +4674,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.408/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
       }
     }
   },
